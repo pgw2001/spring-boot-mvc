@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport">
+  <title>[블로그 이름]</title>
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+  <link rel="stylesheet" th:href="@{/assets/style.css}">
+</head>
+<body>
+<div class="viewport">
+
+  <header class="appbar appbar--between">
+    <a class="brand" href="index.html">
+      <svg aria-hidden="true" fill="none" height="26" viewBox="0 0 26 26" width="26">
+        <rect fill="#D14428" height="26" rx="8" width="26"></rect>
+        <path d="M8.6 17.4 9.4 14.4l6.5-6.5a1.5 1.5 0 0 1 2.1 2.1l-6.5 6.5-3 .9Z" fill="none" stroke="#FFFFFF"
+              stroke-linejoin="round" stroke-width="1.5"></path>
+      </svg>
+      <span class="brand__name">[블로그 이름]</span>
+    </a>
+    <a class="btn-pill" th:href="@{/posts/new}">
+      <svg aria-hidden="true" fill="none" height="17" viewBox="0 0 20 20" width="17">
+        <path d="M10 4.5v11M4.5 10h11" stroke="currentColor" stroke-linecap="round" stroke-width="1.9"></path>
+      </svg>
+      새 글
+    </a>
+  </header>
+
+  <main>
+    <!--    <section class="post-list">-->
+    <!--      <h2 class="section-label section-label&#45;&#45;pinned">고정</h2>-->
+
+    <!--      <a class="post-item" href="post.html">-->
+    <!--        <span class="post-item__title">이 블로그를 시작하며</span>-->
+    <!--        <span class="post-item__excerpt">기록하지 않으면 사라지는 것들이 있어서, 작은 글부터 남겨보기로 했습니다.</span>-->
+    <!--        <time class="post-item__date" datetime="2026-08-30">2026년 8월 30일</time>-->
+    <!--      </a>-->
+    <!--    </section>-->
+
+    <section class="post-list">
+      <h2 class="section-label">전체</h2>
+
+      <a class="post-item" th:each="post : ${posts}" th:href="@{/posts/{id}(id=${post.id})}">
+        <span class="post-item__title" th:text="${post.title}">스프링 부트로 만든 첫 CRUD</span>
+        <span class="post-item__excerpt" th:text="${post.content}">글을 저장하고 불러오는 가장 단순한 형태부터 만들어 봤습니다.</span>
+        <time class="post-item__date" th:datetime="${post.formattedCreatedAt}"
+              th:text="${post.formattedCreatedAt}">2026년 8월 24일
+        </time>
+      </a>
+    </section>
+
+    <!-- 글이 하나도 없을 때는 위 두 section 대신 아래를 보여 주세요.
+    <div class="empty">
+      <p class="empty__title">아직 남긴 글이 없습니다</p>
+      <p class="empty__text">오른쪽 위 새 글 버튼으로 시작해 보세요</p>
+    </div>
+    -->
+  </main>
+
+  <footer class="footer">
+    <div class="brand">
+      <svg aria-hidden="true" fill="none" height="20" viewBox="0 0 26 26" width="20">
+        <rect fill="#D14428" height="26" rx="8" width="26"></rect>
+        <path d="M8.6 17.4 9.4 14.4l6.5-6.5a1.5 1.5 0 0 1 2.1 2.1l-6.5 6.5-3 .9Z" fill="none" stroke="#FFFFFF"
+              stroke-linejoin="round" stroke-width="1.5"></path>
+      </svg>
+      <span class="footer__name">[블로그 이름]</span>
+    </div>
+    <small class="footer__copy">© 2026 [블로그 이름]</small>
+  </footer>
+
+</div>
+</body>
+</html>

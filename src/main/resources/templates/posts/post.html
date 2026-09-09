@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport">
+  <title>이 블로그를 시작하며 — [블로그 이름]</title>
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+  <link rel="stylesheet" th:href="@{/assets/style.css}">
+</head>
+<body>
+<div class="viewport">
+
+  <header class="appbar appbar--article">
+    <a aria-label="목록으로" class="btn-icon" th:href="@{/posts}">
+      <svg aria-hidden="true" fill="none" height="22" viewBox="0 0 24 24" width="22">
+        <path d="M14.5 5.5 8 12l6.5 6.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+              stroke-width="1.7"></path>
+      </svg>
+    </a>
+    <div class="appbar__actions">
+      <a class="btn-text btn-text--accent" href="edit.html">수정</a>
+      <a class="btn-text btn-text--muted" href="#delete">삭제</a>
+    </div>
+  </header>
+
+  <main>
+    <article class="article">
+      <h1 class="article__title" th:text="${post.title}">이 블로그를 시작하며</h1>
+      <time class="article__date" th:datetime="${post.createdAt}">2026년 8월 30일</time>
+      <hr class="article__divider">
+      <div class="article__body">
+        <p th:text="${post.content}">기록하지 않으면 사라지는 것들이 있습니다.</p>
+      </div>
+    </article>
+  </main>
+
+</div>
+
+<div class="modal" id="delete">
+  <div class="modal__inner">
+    <a aria-label="닫기" class="modal__scrim" href="#"></a>
+    <div aria-labelledby="delete-title" aria-modal="true" class="modal__dialog" role="dialog">
+      <h2 class="modal__title" id="delete-title">이 글을 삭제할까요?</h2>
+      <p class="modal__text">삭제한 글은 다시 되돌릴 수 없습니다.</p>
+      <form action="/posts/1/delete" class="modal__actions" method="post">
+        <a class="btn-block btn-block--ghost" href="#">취소</a>
+        <button class="btn-block btn-block--danger" type="submit">삭제</button>
+      </form>
+    </div>
+  </div>
+</div>
+</body>
+</html>

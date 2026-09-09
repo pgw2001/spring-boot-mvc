@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport">
+  <title>새 글 — [블로그 이름]</title>
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+  <link rel="stylesheet" th:href="@{/assets/style.css}">
+</head>
+<body>
+<div class="viewport">
+
+  <header class="appbar appbar--editor">
+    <a class="btn-text btn-text--plain" th:href="@{/posts}">취소</a>
+    <span class="appbar__title">새 글</span>
+    <button class="btn-text btn-text--accent" form="post-form" type="submit">저장</button>
+  </header>
+
+  <main class="editor-main">
+    <form class="editor" id="post-form" method="post" th:action="@{/posts}" th:object="${post}">
+      <input autocomplete="off" class="editor__title" placeholder="제목" required th:field="*{title}" type="text">
+      <textarea class="editor__body" name="content" placeholder="오늘은 어떤 이야기를 남길까요?" th:field="*{content}"></textarea>
+    </form>
+  </main>
+
+</div>
+</body>
+</html>

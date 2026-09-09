@@ -1,0 +1,45 @@
+package com.kimyanu.blog.controller;
+
+import com.kimyanu.blog.model.BlogPost;
+import com.kimyanu.blog.repository.BlogPostRepository;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+
+@Controller
+public class BlogPostController {
+
+    private final BlogPostRepository blogPostRepository;
+
+    public BlogPostController(BlogPostRepository blogPostRepository) {
+        this.blogPostRepository = blogPostRepository;
+    }
+
+    @GetMapping({"/", "/posts"})
+    public String list(Model model) {
+        model.addAttribute("posts", blogPostRepository.findAll());
+        return "posts/index";
+    }
+
+    @GetMapping("/posts/new")
+    public String newPostForm(Model model) {
+        model.addAttribute("post", new BlogPost());
+        return "posts/write";
+    }
+
+    @PostMapping("/posts")
+    public String createPost(@ModelAttribute BlogPost post) {
+        blogPostRepository.createdPost(post);
+        return "redirect:/posts";
+    }
+
+    @GetMapping("/posts/{id}")
+    public String viewPost(@PathVariable Long id, Model model) {
+        BlogPost post = blogPostRepository.getBlogPostById(id);
+        model.addAttribute("post", post);
+        return "posts/post";
+    }
+}
