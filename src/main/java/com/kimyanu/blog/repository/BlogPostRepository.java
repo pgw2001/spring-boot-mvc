@@ -47,4 +47,10 @@ public class BlogPostRepository {
 //        blogPosts.remove(existedPost);
         blogPosts.removeIf(post -> post.getId().equals(id));
     }
+
+    public void updatePost(Long id, BlogPost post) {
+        BlogPost existedPost = getBlogPostById(id);
+        existedPost.setTitle(post.getTitle());
+        existedPost.setContent(post.getContent());
+    }
 }

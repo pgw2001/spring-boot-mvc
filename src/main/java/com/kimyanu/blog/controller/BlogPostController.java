@@ -38,9 +38,14 @@ public class BlogPostController {
 
     @GetMapping("/posts/{id}")
     public String viewPost(@PathVariable Long id, Model model) {
-        BlogPost post = blogPostRepository.getBlogPostById(id);
-        model.addAttribute("post", post);
-        return "posts/post";
+        try {
+            BlogPost post = blogPostRepository.getBlogPostById(id);
+            model.addAttribute("post", post);
+            return "posts/post";
+        } catch (IllegalArgumentException e) {
+            return "redirect:/posts";
+        }
+
     }
 
     @PostMapping("/posts/{id}/delete")
@@ -48,4 +53,18 @@ public class BlogPostController {
         blogPostRepository.deletePostById(id);
         return "redirect:/posts";
     }
+
+    @GetMapping("/post/{id}/edit")
+    public String editPostForm(@PathVariable Long id, Model model) {
+        BlogPost existingPost = blogPostRepository.getBlogPostById(id);
+        model.addAttribute("post", existingPost);
+        return "posts/write";
+    }
+
+    @PostMapping("/posts/{id}/edit")
+    public String updatePost(@PathVariable Long id, @ModelAttribute BlogPost post) {
+        blogPostRepository.updatePost(id, post);
+        return "redirect:/posts/" + id;
+    }
+
 }
