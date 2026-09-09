@@ -42,4 +42,10 @@ public class BlogPostController {
         model.addAttribute("post", post);
         return "posts/post";
     }
+
+    @PostMapping("/posts/{id}/delete")
+    public String deletePost(@PathVariable Long id) {
+        blogPostRepository.deletePostById(id);
+        return "redirect:/posts";
+    }
 }
