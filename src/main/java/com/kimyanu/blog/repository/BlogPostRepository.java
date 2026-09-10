@@ -24,7 +24,7 @@ public class BlogPostRepository {
     }
 
     public void createdPost(BlogPost post) {
-        post.setId((long) (blogPosts.size() + 1));
+        post.setId(idGenerator.incrementAndGet());
         post.setCreatedAt(LocalDateTime.now());
         blogPosts.add(post);
     }

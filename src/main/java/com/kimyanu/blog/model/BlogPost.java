@@ -13,7 +13,7 @@ public class BlogPost {
     public BlogPost() {
     }
 
-    public BlogPost(long id, String title, String content, LocalDateTime createdAt) {
+    public BlogPost(Long id, String title, String content, LocalDateTime createdAt) {
         this.id = id;
         this.title = title;
         this.content = content;
