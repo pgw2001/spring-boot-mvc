@@ -20,6 +20,8 @@ public class BlogPostController {
 
     @GetMapping({"/", "/posts"})
     public String list(Model model) {
+//        model.addAttribute("pinnedPosts", blogPostRepository.findPinned());
+//        model.addAttribute("pinnedPosts", blogPostRepository.findNoPinned());
         model.addAttribute("posts", blogPostRepository.findAll());
         return "posts/index";
     }
@@ -54,7 +56,7 @@ public class BlogPostController {
         return "redirect:/posts";
     }
 
-    @GetMapping("/post/{id}/edit")
+    @GetMapping("/posts/{id}/edit")
     public String editPostForm(@PathVariable Long id, Model model) {
         BlogPost existingPost = blogPostRepository.getBlogPostById(id);
         model.addAttribute("post", existingPost);
@@ -64,6 +66,12 @@ public class BlogPostController {
     @PostMapping("/posts/{id}/edit")
     public String updatePost(@PathVariable Long id, @ModelAttribute BlogPost post) {
         blogPostRepository.updatePost(id, post);
+        return "redirect:/posts/" + id;
+    }
+
+    @PostMapping("/posts/{id}/pin")
+    public String updatePin(@PathVariable Long id) {
+        blogPostRepository.updatePinnedPostStatus(id);
         return "redirect:/posts/" + id;
     }
 

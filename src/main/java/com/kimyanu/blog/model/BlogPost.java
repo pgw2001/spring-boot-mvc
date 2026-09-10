@@ -9,6 +9,7 @@ public class BlogPost {
     private String title;
     private String content;
     private LocalDateTime createdAt;
+    private Boolean isPinned;
 
     public BlogPost() {
     }
@@ -18,6 +19,7 @@ public class BlogPost {
         this.title = title;
         this.content = content;
         this.createdAt = createdAt;
+        isPinned = false;
     }
 
     public Long getId() {
@@ -54,5 +56,13 @@ public class BlogPost {
 
     public String getFormattedCreatedAt() {
         return createdAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+    }
+
+    public Boolean getIsPinned() {
+        return isPinned;
+    }
+
+    public void setIsPinned(Boolean isPinned) {
+        this.isPinned = isPinned;
     }
 }

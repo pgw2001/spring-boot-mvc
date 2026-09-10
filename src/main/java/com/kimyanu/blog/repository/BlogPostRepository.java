@@ -11,7 +11,7 @@ import java.util.concurrent.atomic.AtomicLong;
 @Repository
 public class BlogPostRepository {
     private final List<BlogPost> blogPosts = new ArrayList<>();
-    private AtomicLong idGenerator = new AtomicLong(0);
+    private final AtomicLong idGenerator = new AtomicLong(0);
 
     public BlogPostRepository() {
         blogPosts.add(new BlogPost(idGenerator.incrementAndGet(), "스프링 부트로 만든 첫 CRUD", "글을 저장하고 불러오는 가장 단순한 형태부터 만들어 봤습니다.", LocalDateTime.now()));
@@ -53,4 +53,21 @@ public class BlogPostRepository {
         existedPost.setTitle(post.getTitle());
         existedPost.setContent(post.getContent());
     }
+
+    public void updatePinnedPostStatus(Long id) {
+        BlogPost existedPost = getBlogPostById(id);
+        existedPost.setIsPinned(existedPost.getIsPinned() != true);
+    }
+
+//    public List<BlogPost> findPinned() {
+//        return blogPosts.stream()
+//                .filter(BlogPost::getIsPinned)
+//                .toList();
+//    }
+//
+//    public List<BlogPost> findNotPinned() {
+//        return blogPosts.stream()
+//                .filter(post -> !post.getIsPinned())
+//                .toList();
+//    }
 }

@@ -24,20 +24,19 @@
   </header>
 
   <main>
-    <!--    <section class="post-list">-->
-    <!--      <h2 class="section-label section-label&#45;&#45;pinned">고정</h2>-->
-
-    <!--      <a class="post-item" href="post.html">-->
-    <!--        <span class="post-item__title">이 블로그를 시작하며</span>-->
-    <!--        <span class="post-item__excerpt">기록하지 않으면 사라지는 것들이 있어서, 작은 글부터 남겨보기로 했습니다.</span>-->
-    <!--        <time class="post-item__date" datetime="2026-08-30">2026년 8월 30일</time>-->
-    <!--      </a>-->
-    <!--    </section>-->
+    <section class="post-list" th:if="${#lists.contains(posts.![isPinned], true)}">
+      <h2 class="section-label section-label--pinned">고정</h2>
+      <a class="post-item" th:each="post : ${posts}" th:href="@{/posts/{id}(id=${post.id})}" th:if="${post.isPinned}">
+        <span class="post-item__title" th:text="${post.title}">이 블로그를 시작하며</span>
+        <span class="post-item__excerpt" th:text="${post.content}">기록하지 않으면 사라지는 것들이 있어서, 작은 글부터 남겨보기로 했습니다.</span>
+        <time class="post-item__date" th:datetime="${post.formattedCreatedAt}">2026년 8월 30일</time>
+      </a>
+    </section>
 
     <section class="post-list">
       <h2 class="section-label">전체</h2>
-
-      <a class="post-item" th:each="post : ${posts}" th:href="@{/posts/{id}(id=${post.id})}">
+      <a class="post-item" th:each="post : ${posts}" th:href="@{/posts/{id}(id=${post.id})}"
+         th:unless="${post.isPinned}">
         <span class="post-item__title" th:text="${post.title}">스프링 부트로 만든 첫 CRUD</span>
         <span class="post-item__excerpt" th:text="${post.content}">글을 저장하고 불러오는 가장 단순한 형태부터 만들어 봤습니다.</span>
         <time class="post-item__date" th:datetime="${post.formattedCreatedAt}"
