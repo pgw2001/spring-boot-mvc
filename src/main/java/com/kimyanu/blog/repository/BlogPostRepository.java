@@ -59,15 +59,15 @@ public class BlogPostRepository {
         existedPost.setIsPinned(existedPost.getIsPinned() != true);
     }
 
-//    public List<BlogPost> findPinned() {
-//        return blogPosts.stream()
-//                .filter(BlogPost::getIsPinned)
-//                .toList();
-//    }
-//
-//    public List<BlogPost> findNotPinned() {
-//        return blogPosts.stream()
-//                .filter(post -> !post.getIsPinned())
-//                .toList();
-//    }
+    public List<BlogPost> findPinned() {
+        return blogPosts.stream()
+                .filter(BlogPost::getIsPinned)
+                .toList();
+    }
+
+    public List<BlogPost> findNotPinned() {
+        return blogPosts.stream()
+                .filter(post -> !post.getIsPinned())
+                .toList();
+    }
 }

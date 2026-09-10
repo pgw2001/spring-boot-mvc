@@ -20,9 +20,8 @@ public class BlogPostController {
 
     @GetMapping({"/", "/posts"})
     public String list(Model model) {
-//        model.addAttribute("pinnedPosts", blogPostRepository.findPinned());
-//        model.addAttribute("pinnedPosts", blogPostRepository.findNoPinned());
-        model.addAttribute("posts", blogPostRepository.findAll());
+        model.addAttribute("pinnedPosts", blogPostRepository.findPinned());
+        model.addAttribute("posts", blogPostRepository.findNotPinned());
         return "posts/index";
     }
 
@@ -71,6 +70,10 @@ public class BlogPostController {
 
     @PostMapping("/posts/{id}/pin")
     public String updatePin(@PathVariable Long id) {
+        BlogPost post = blogPostRepository.getBlogPostById(id);
+        if (post == null) {
+            throw new IllegalArgumentException("글을 찾을 수 없습니다. id=" + id);
+        }
         blogPostRepository.updatePinnedPostStatus(id);
         return "redirect:/posts/" + id;
     }
